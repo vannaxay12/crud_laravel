@@ -16,7 +16,7 @@ class CreateAdminsTable extends Migration
             $table->string('country')->nullable();
             $table->string('city')->nullable();
             $table->date('dob')->nullable();
-            $table->string('profile_image')->nullable();
+           
             $table->string('password');
             $table->string('level')->default('Admin');
             $table->timestamps();

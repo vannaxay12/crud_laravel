@@ -21,7 +21,7 @@
 
   <!-- Nav Item - Products -->
   <li class="nav-item">
-    <a class="nav-link" href="{{ route('products') }}">
+    <a class="nav-link" href="{{ route('products.index') }}">
       <i class="fas fa-box-open"></i>
       <span>Products</span>
     </a>
@@ -34,7 +34,12 @@
       <span>Admin Users</span>
     </a>
   </li>
-
+  <li class="nav-item">
+    <a class="nav-link" href="{{ route('admin.profile.show') }}">
+      <i class="fas fa-user-shield"></i>
+      <span>profile</span>
+    </a>
+  </li>
   <!-- Divider -->
   <hr class="sidebar-divider d-none d-md-block">
 

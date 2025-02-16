@@ -29,7 +29,7 @@
               </div>
 
               <!-- Registration Form -->
-              <form action="{{ route('Adminregister.save') }}" method="POST" class="admin" enctype="multipart/form-data">
+              <form action="{{ route('Adminregister.save') }}" method="POST" class="admins" enctype="multipart/form-data">
                 @csrf
 
                 <!-- Name -->
@@ -81,13 +81,7 @@
                 </div>
 
                 <!-- Profile Image Upload -->
-                <div class="form-group">
-                  <label for="profile_image">Profile Image</label>
-                  <input type="file" name="profile_image" class="form-control @error('profile_image') is-invalid @enderror" accept="image/*">
-                  @error('profile_image')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                  @enderror
-                </div>
+      
 
                 <!-- Password Fields -->
                 <div class="form-group row">
@@ -108,7 +102,7 @@
 
               <hr>
               <div class="text-center">
-                <a class="small" href="{{ route('login') }}">Already have an account? Login!</a>
+                <a class="small" href="{{ route('Adminlogin') }}">Already have an account? Login!</a>
               </div>
             </div>
           </div>

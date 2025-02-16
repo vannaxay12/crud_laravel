@@ -6,4 +6,5 @@
   <div class="row">
     Dashboard
   </div>
+  
 @endsection

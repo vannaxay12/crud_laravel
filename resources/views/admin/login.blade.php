@@ -29,7 +29,7 @@
                   <div class="text-center">
                     <h1 class="h4 text-gray-900 mb-4">Admin</h1>
                   </div>
-                  <form action="{{ route('Adminlogin.action') }}" method="POST" class="admin">
+                  <form action="{{ route('Adminlogin.action') }}" method="POST" class="admins">
                     @csrf
                     @if ($errors->any())
                       <div class="alert alert-danger">
@@ -41,10 +41,11 @@
                       </div>
                     @endif
                     <div class="form-group">
-                      <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">
+                      <input name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Email">  
                     </div>
                     <div class="form-group">
                       <input name="password" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+
                     </div>
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
@@ -57,7 +58,7 @@
                   </form>
                   <hr>
                   <div class="text-center">
-                    <a class="small" href="{{ route('register') }}">Create an Account!</a>
+                    <a class="small" href="{{ route('Adminregister') }}">Create an Account!</a>
                   </div>
                 </div>
               </div>

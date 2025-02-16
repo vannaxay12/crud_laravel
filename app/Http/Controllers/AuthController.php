@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+
 use App\Models\User;
 
 class AuthController extends Controller
@@ -12,6 +12,7 @@ class AuthController extends Controller
     /**
      * แสดงฟอร์มลงทะเบียน
      */
+    
     public function register()
     {
         return view('auth.register');
@@ -30,16 +31,10 @@ class AuthController extends Controller
             'country' => 'required',
             'city' => 'required',
             'dob' => 'required|date',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
             'password' => 'required|confirmed',
         ]);
-    
-        // จัดการการอัปโหลดรูปโปรไฟล์ถ้ามี
-        $profileImagePath = null;
-        if ($request->hasFile('profile_image')) {
-            $profileImagePath = $request->file('profile_image')->store('profile_images', 'public');
-        }
-    
+   
         // สร้างผู้ใช้ใหม่โดยไม่ใช้ bcrypt
         $user = User::create([
             'name' => $request->name,
@@ -48,7 +43,7 @@ class AuthController extends Controller
             'country' => $request->country,
             'city' => $request->city,
             'dob' => $request->dob,
-            'profile_image' => $profileImagePath,
+    
             'password' => $request->password,  // เก็บรหัสผ่านแบบข้อความธรรมดา
         ]);
     

@@ -81,14 +81,7 @@
                 </div>
 
                 <!-- Profile Image Upload -->
-                <div class="form-group">
-                  <label for="profile_image">Profile Image</label>
-                  <input type="file" name="profile_image" class="form-control @error('profile_image') is-invalid @enderror" accept="image/*">
-                  @error('profile_image')
-                    <span class="invalid-feedback">{{ $message }}</span>
-                  @enderror
-                </div>
-
+        
                 <!-- Password Fields -->
                 <div class="form-group row">
                   <div class="col-sm-6 mb-3 mb-sm-0">

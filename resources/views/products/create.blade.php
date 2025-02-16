@@ -7,6 +7,12 @@
     <hr />
     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        <div class="row mb-3">
+            <div class="col">
+                <label for="category_id">Category</label>
+                <input type="text" name="category_id" class="form-control" placeholder="Enter Category" required>
+            </div>
+        </div>
 
         <div class="row mb-3">
             <div class="col">
@@ -23,6 +29,12 @@
             </div>
             <div class="col">
                 <textarea class="form-control" name="description" placeholder="Description" required></textarea>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col">
+                <input type="number" name="stock_quantity" class="form-control" placeholder="Stock Quantity" required min="0">
             </div>
         </div>
 

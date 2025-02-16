@@ -10,7 +10,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
-                <th>Password</th>
+                <th>Passwordf</th>
             </tr>
         </thead>
         <tbody>

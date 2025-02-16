@@ -4,20 +4,21 @@
   use Illuminate\Http\Request;
   use App\Models\Product;
   use Illuminate\Support\Facades\Storage;
-  
+  use App\Models\Category; // เพิ่มบรรทัดนี้
+
   class ProductController extends Controller
   {
       public function index()
       {
           $products = Product::all(); // Fetch all products
-          return view('products.index', compact('products'));
+          return view('products/index', compact('products'));
       }
   
       public function create()
       {
-          return view('products.create'); // Show form to create new product
+        $categories = Category::all(); // หรือวิธีการดึงข้อมูล category ที่เหมาะสม
+        return view('products.create', compact('categories'));// Show form to create new product
       }
-  
       public function store(Request $request)
       {
           // Validate the request
@@ -26,24 +27,33 @@
               'price' => 'required|numeric',
               'product_code' => 'required|string|max:255',
               'description' => 'required|string',
-              'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',  // Image validation
+              'stock_quantity' => 'required|integer|min:0',
+              'category_id' => 'required|string',  // validate category
+              'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
           ]);
-  
-          // Handle the image upload
+      
+          // Check if category exists, if not create a new category
+          $category = \App\Models\Category::firstOrCreate([
+              'name' => $request->category_id,  // using the input as category name
+          ]);
+      
+          // Handle image upload
           $imagePath = $request->hasFile('image') ? $request->file('image')->store('product_images', 'public') : null;
-  
-          // Create the product
+      
+          // Create product
           Product::create([
               'name' => $request->name,
               'price' => $request->price,
               'product_code' => $request->product_code,
               'description' => $request->description,
-              'image' => $imagePath, // Save image path
+              'stock_quantity' => $request->stock_quantity,
+              'category_id' => $category->id,  // link to the created category
+              'image' => $imagePath,
           ]);
-  
+      
           return redirect()->route('products.index')->with('success', 'Product added successfully');
       }
-  
+      
       public function edit($id)
       {
           $product = Product::findOrFail($id); // Fetch product by ID

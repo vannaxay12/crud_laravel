@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Hash;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,20 +19,19 @@ class AdminController extends Controller
     
     
 
-public function login()
+public function Adminlogin()
 {
     return view('admin/login');
 }
 
-    public function register()
+
+    public function Adminregister()
     {
         return view('admin/register');
     } 
-    
 
     public function AdminregisterSave(Request $request)
     {
-        // Validate input fields
         $request->validate([
             'name' => 'required',
             'email' => 'required|email|unique:admins,email',
@@ -40,17 +39,12 @@ public function login()
             'country' => 'required',
             'city' => 'required',
             'dob' => 'required|date',
-            'profile_image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+
             'password' => 'required|confirmed',
         ]);
     
-        // Handle profile image upload
-        $profileImagePath = null;
-        if ($request->hasFile('profile_image')) {
-            $profileImagePath = $request->file('profile_image')->store('profile_images', 'public');
-        }
+      
     
-        // Create new admin user without bcrypt
         Admin::create([
             'name' => $request->name,
             'email' => $request->email,
@@ -58,15 +52,37 @@ public function login()
             'country' => $request->country,
             'city' => $request->city,
             'dob' => $request->dob,
-            'profile_image' => $profileImagePath,
-            'password' => $request->password,  // ไม่ใช้ bcrypt
+         
+            'password' => $request->password,  // Hash the password
             'level' => 'Admin'
         ]);
     
         return redirect()->route('Adminlogin')->with('success', 'Admin registered successfully!');
     }
     
-    
+
+
+    public function AdminloginAction(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+
+        // ใช้ Auth แบบกำหนดเองที่ไม่ได้ใช้งาน config/auth.php
+        $admin = Admin::where('email', $request->email)->first();
+        
+        if ($admin && $admin->password == $request->password) {  // ควรใช้ bcrypt() หรือ hash() ในการตรวจสอบรหัสผ่าน
+            Auth::login($admin);  // เข้าสู่ระบบ
+            return redirect()->route('dashboard')->with('success', 'Logged in successfully!');
+        }
+
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
+    }
+
+
  // เมธอดประมวลผลการล็อกอิน
  public function create()
  {

@@ -8,6 +8,13 @@
     <form action="{{ route('products.update', $product->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
+        <div class="row mb-3">
+            <div class="col">
+                <label for="category_id">Category</label>
+                <input type="text" name="category_id" class="form-control" placeholder="Enter Category" required>
+            </div>
+        </div>
+
 
         <div class="row mb-3">
             <div class="col">
@@ -27,6 +34,13 @@
             </div>
         </div>
 
+        <!-- ✅ เพิ่มช่องแก้ไข Stock Quantity -->
+        <div class="row mb-3">
+            <div class="col">
+                <input type="number" name="stock_quantity" class="form-control" placeholder="Stock Quantity" value="{{ old('stock_quantity', $product->stock_quantity) }}" required min="0">
+            </div>
+        </div>
+
         <div class="row mb-3">
             <div class="col">
                 <label for="image">Image</label>
@@ -42,4 +56,8 @@
 
         <div class="row">
             <div class="d-grid">
-                <button type="submit" class="btn btn-primary">Update
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+@endsection

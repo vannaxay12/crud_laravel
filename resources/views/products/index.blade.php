@@ -6,7 +6,8 @@
     <h1 class="mb-0">All Products</h1>
     <hr />
     <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Add New Product</a>
-    
+    <a href="{{ route('products.index') }}" class="btn btn-primary mb-3">View All Products</a>
+
     <table class="table">
         <thead>
             <tr>
@@ -14,6 +15,7 @@
                 <th>Price</th>
                 <th>Product Code</th>
                 <th>Description</th>
+                <th>Stock Quantity</th>
                 <th>Image</th>
                 <th>Actions</th>
             </tr>
@@ -25,6 +27,7 @@
                     <td>${{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->product_code }}</td>
                     <td>{{ $product->description }}</td>
+                    <td>{{ $product->stock_quantity }}</td>
                     <td>
                         @if($product->image)
                             <img src="{{ asset('storage/' . $product->image) }}" alt="{{ $product->name }}" width="100">
